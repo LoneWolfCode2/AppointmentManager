@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MonthSelection from './MonthSelection'
 import DaySelection from './DaySelection'
+import FormSubmission from './FormSubmission'
 const steps = ['Select Day', 'Select Time', 'Submit Request'];
 
 export default function HorizontalLinearStepper() {
@@ -87,14 +88,7 @@ export default function HorizontalLinearStepper() {
                         <DaySelection date={date} setDate={setDate} end={end} setEnd={setEnd} />
                     )}
                     {activeStep === 2 && (
-                        <>
-                            <h1>START:</h1>
-                            <div className="">{date?.toDate().toLocaleString()}</div>
-                            <h1>END:</h1>
-                            <div className="">{end?.toDate().toLocaleString()}</div>
-
-                        </>
-
+                        <FormSubmission date={date} end={end} handleNext={handleNext()} />
                     )}
                     <Box sx={{ display: 'flex', flexDirection: 'row', mt: 32, position: 'absolute', bottom: 16, left: 64, right: 64 }}>
                         <Button
@@ -108,12 +102,13 @@ export default function HorizontalLinearStepper() {
                         <Box sx={{ flex: '1 1 auto' }} />
 
 
-                        <Button variant='contained' onClick={handleNext} disabled={activeStep === 0 ? !date : !date && !end}>
+                        <Button variant='contained' onClick={handleNext} sx={{ display: activeStep === 2 ? "none" : undefined }} disabled={activeStep === 0 ? !date : !date && !end}>
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>
                     </Box>
                 </React.Fragment>
-            )}
-        </Box>
+            )
+            }
+        </Box >
     );
 }
